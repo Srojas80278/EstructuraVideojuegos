@@ -1,37 +1,52 @@
 using Pathfinding;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    private AIDestinationSetter destinationSetter;
+    private Animator enemyAnimator;
+    private AILerp aiLerp;
 
-    private void Start()
+    void Start()
     {
-        // Encuentra el GameObject del jugador con la etiqueta "Player".
-        GameObject playerObject = GameObject.FindWithTag("Player");
+        enemyAnimator = GetComponent<Animator>();
+        aiLerp = GetComponent<AILerp>();
+    }
 
-        if (playerObject != null)
+    void Update()
+    {
+        Vector2 movementDirection = GetMovementDirection();
+
+        if (aiLerp != null)
         {
-            // Obtén el componente AIDestinationSetter de este GameObject.
-            destinationSetter = GetComponent<AIDestinationSetter>();
-
-            if (destinationSetter != null)
+            if (Mathf.Abs(movementDirection.x) > Mathf.Abs(movementDirection.y))
             {
-                // Asigna el transform del jugador como destino.
-                destinationSetter.target = playerObject.transform;
+                // Horizontal
+                enemyAnimator.SetFloat("X", movementDirection.x);
+                enemyAnimator.SetFloat("Y", 0f);
             }
             else
             {
-                Debug.LogError("AIDestinationSetter no encontrado en el enemigo.");
+                // Vertical
+                enemyAnimator.SetFloat("X", 0f);
+                enemyAnimator.SetFloat("Y", movementDirection.y);
             }
         }
         else
         {
-            Debug.LogError("Jugador (Player) no encontrado con la etiqueta 'Player'.");
+            Debug.LogError("AILerp component not found or not initialized.");
         }
     }
 
-    
+    Vector2 GetMovementDirection()
+    {
+        if (aiLerp != null)
+        {
+            Vector3 aiVelocity = aiLerp.velocity;
+            return new Vector2(aiVelocity.x, aiVelocity.z).normalized;
+        }
+        else
+        {
+            return Vector2.zero;
+        }
+    }
 }
