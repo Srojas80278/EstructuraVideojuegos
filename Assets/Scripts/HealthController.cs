@@ -27,7 +27,7 @@ public class HealthController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
     }
 
-    public void TakeDamage(float damage, Vector2 contactPoint)
+    public void TakeDamage(float damage)
     {
         health -= damage;
         if (health <= 0.0F)

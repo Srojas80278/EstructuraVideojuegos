@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+
+    [SerializeField]
+    float damage = 10.0F;
+
     private Animator enemyAnimator;
     private AILerp aiLerp;
 
@@ -10,6 +14,7 @@ public class EnemyController : MonoBehaviour
     {
         enemyAnimator = GetComponent<Animator>();
         aiLerp = GetComponent<AILerp>();
+  
     }
 
     void FixedUpdate()
@@ -56,5 +61,31 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+     void OnCollisionEnter2D(Collision2D other) //Bulllet damage/Player damage
+    {
+        if (other.gameObject.tag == "Bullet")
+        {
+
+            GameManagerController gameManager = FindFirstObjectByType<GameManagerController>();
+            gameManager.IncrementKillCount();
+
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+        }
+       
+
+        if (other.collider.CompareTag("Player"))
+        {
+            Vector2 contactPoint = other.GetContact(0).normal;
+            
+                HealthController controller =
+                other.collider.GetComponent<HealthController>();
+                controller.TakeDamage(damage);
+            
+
+        }
+
+
+    }
 
 }
