@@ -9,7 +9,7 @@ public class SpawnEnemyController : MonoBehaviour
     public float spawnInterval = 15.0f;
     [SerializeField]
     public float spawnRadius = 30.0f;
-
+    [SerializeField]
     private float nextSpawnTime = 15.0f;
     private void Start()
     {
