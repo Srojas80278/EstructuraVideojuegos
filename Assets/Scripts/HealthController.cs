@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HealthController : MonoBehaviour
 {
@@ -32,11 +33,18 @@ public class HealthController : MonoBehaviour
         health -= damage;
         if (health <= 0.0F)
         {
-            Destroy(gameObject);
+            CambiarEscena();
             return;
         }
 
         _healthBarController.OnDamage.Invoke(damage);
 
+    }
+
+    void CambiarEscena()
+    {
+        string escenaSiguiente = "GameOver";
+
+        SceneManager.LoadScene(escenaSiguiente);
     }
 }
