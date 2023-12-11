@@ -16,6 +16,6 @@ public class MainSceneController : MonoBehaviour
     
     void Start()
     {
-        AudioManager.Instance.PlayMusic("Theme");
+        AudioManager.Instance.PlaySFX("Theme", true);
     }
 }

@@ -47,3 +47,7 @@ MonoBehaviour:
   sounds:
   - name: Theme
     sound: {fileID: 8300000, guid: 6a6c21373a754694783ff60ea569c04b, type: 3}
+  - name: Death
+    sound: {fileID: 8300000, guid: e5d2f3602c69d38419796b6be1486abc, type: 3}
+  - name: Rain
+    sound: {fileID: 8300000, guid: daee1e67f6add3f4a8e116ba12987de2, type: 3}

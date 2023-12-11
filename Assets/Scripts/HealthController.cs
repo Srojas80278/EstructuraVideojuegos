@@ -33,6 +33,8 @@ public class HealthController : MonoBehaviour
         health -= damage;
         if (health <= 0.0F)
         {
+            AudioManager.Instance.StopSFX();
+            AudioManager.Instance.PlaySFX("Death");
             CambiarEscena();
             return;
         }
